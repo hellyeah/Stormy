@@ -66,9 +66,9 @@ struct Current {
         case "cloudy":
             imageName = "cloudy"
         case "partly-cloudy-day":
-            imageName = "partly-cloudy-day"
+            imageName = "partly-cloudy"
         case "partly-cloudy-night":
-            imageName = "partly-cloudy-night"
+            imageName = "cloudy-night"
         default:
             imageName = "default"
         }

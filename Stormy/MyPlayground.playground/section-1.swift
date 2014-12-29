@@ -15,3 +15,13 @@ let weatherData = NSData(contentsOfURL: forecastURL!, options: nil, error: nil)
 let string1 = NSString(data: weatherData!, encoding: NSUTF8StringEncoding)
 println(string1!)
 
+//STORYBOARD TRICKS
+//Autosize element to fit text: CMD + =
+//ctrl-drag to set autolayout
+//at bottom, you have to update constraints
+//duplicate element: option-drag or alt-drag
+
+//can use assistant editor "preview" tab to display different screen sizes and orientations
+
+//alt over space or other elements to show distance from selected element
+

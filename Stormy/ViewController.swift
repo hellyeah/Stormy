@@ -10,6 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet var iconView: UIImageView!
+    @IBOutlet var currentTimeLabel: UILabel!
+    @IBOutlet var temperatureLabel: UILabel!
+    @IBOutlet var humidityLabel: UILabel!
+    @IBOutlet var precipitationLabel: UILabel!
+    @IBOutlet var summaryLabel: UILabel!
+    
+    
+    @IBOutlet var refreshButton: UIButton!
+    
+    @IBOutlet var refreshActivityIndicator: UIActivityIndicatorView!
+    
     //access controls
     //3 access levels
     private let apiKey = "459b10c1c58316fabe5154a4d819de2f"
@@ -17,17 +29,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        refreshActivityIndicator.hidden = true
         
+//        let string1 = NSString(data: weatherData!, encoding: NSUTF8StringEncoding)
+  //      println(string1!)
+        getCurrentWeatherData()
+        
+    }
+    
+    func getCurrentWeatherData () -> Void {
         let baseURL = NSURL(string:"https://api.forecast.io/forecast/\(apiKey)/")
         let forecastURL = NSURL(string: "37.8267,-122.423", relativeToURL: baseURL)
         //println("URL:\(forecastURL!)")
         
-//        let weatherData = NSData(contentsOfURL: forecastURL!, options: nil, error: nil)
-//        println(weatherData)
+        //        let weatherData = NSData(contentsOfURL: forecastURL!, options: nil, error: nil)
+        //        println(weatherData)
         let sharedSession = NSURLSession.sharedSession()
         let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastURL!, completionHandler: { (location: NSURL!, response: NSURLResponse!, error: NSError!) -> Void in
-//            var urlContents = NSString(contentsOfURL: location, encoding: NSUTF8StringEncoding, error: nil)
-//            println(urlContents)
+            //            var urlContents = NSString(contentsOfURL: location, encoding: NSUTF8StringEncoding, error: nil)
+            //            println(urlContents)
             
             if(error == nil) {
                 //swift dictionaries can only store 1 type, so we use NSDictionary
@@ -39,17 +59,45 @@ class ViewController: UIViewController {
                 
                 //NSJSONSerialization.JSONObjectWithData(dataObject!, options: nil, error: nil)
                 //println(weatherDictionary)
-
                 
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.temperatureLabel.text = "\(currentWeather.temperature)"
+                    self.iconView.image = currentWeather.icon!
+                    self.currentTimeLabel.text = "At \(currentWeather.currentTime!) it is"
+                    self.humidityLabel.text = "\(currentWeather.humidity)"
+                    self.precipitationLabel.text = "\(currentWeather.precipProbability)"
+                    self.summaryLabel.text = "\(currentWeather.summary)"
+                    
+                    //one of the intended effects of hiding a button is that the user can't interact with it
+                    self.refreshActivityIndicator.stopAnimating()
+                    self.refreshActivityIndicator.hidden = true
+                    self.refreshButton.hidden = false
+                })
+            } else {
+                let networkIssueController  = UIAlertController(title: "Error", message: "Unable to load data. Connectivity Error!", preferredStyle: .Alert)
+                
+                let okButton = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                networkIssueController.addAction(okButton)
+                
+                let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                networkIssueController.addAction(cancelButton)
+                
+                self.presentViewController(networkIssueController, animated: true, completion: nil)
             }
-
+            
         })
         downloadTask.resume()
-//        let string1 = NSString(data: weatherData!, encoding: NSUTF8StringEncoding)
-  //      println(string1!)
-        
     }
 
+
+    @IBAction func refresh() {
+        getCurrentWeatherData()
+        
+        refreshButton.hidden = true
+        refreshActivityIndicator.hidden = false
+        refreshActivityIndicator.startAnimating()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
