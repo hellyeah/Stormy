@@ -25,3 +25,23 @@ println(string1!)
 
 //alt over space or other elements to show distance from selected element
 
+
+//LOCATION DATA
+
+import CoreLocation
+
+var locationManager = CLLocationManager()
+locationManager.desiredAccuracy = kCLLocationAccuracyBest
+locationManager.requestAlwaysAuthorization()
+locationManager.startUpdatingLocation()
+
+
+var currentLocation = CLLocation()
+
+if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+    CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized){
+        
+        currentLocation = locationManager.location
+        println(currentLocation)
+        
+}

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ViewController: UIViewController {
     
@@ -34,6 +35,7 @@ class ViewController: UIViewController {
 //        let string1 = NSString(data: weatherData!, encoding: NSUTF8StringEncoding)
   //      println(string1!)
         getCurrentWeatherData()
+        //println(getLocation().latitude)
         
     }
     
@@ -96,6 +98,26 @@ class ViewController: UIViewController {
             
         })
         downloadTask.resume()
+    }
+    
+    func getLocation () -> (latitude: String, longitude: String)? {
+        var locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        
+        var currentLocation = CLLocation()
+        
+        if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized){
+                
+                currentLocation = locationManager.location
+                return ("\(currentLocation.coordinate.latitude)", "\(currentLocation.coordinate.longitude)")
+                
+        } else {
+            return nil
+        }
     }
 
 
