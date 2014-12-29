@@ -69,6 +69,7 @@ class ViewController: UIViewController {
                     self.summaryLabel.text = "\(currentWeather.summary)"
                     
                     //one of the intended effects of hiding a button is that the user can't interact with it
+                    //stop refresh animation
                     self.refreshActivityIndicator.stopAnimating()
                     self.refreshActivityIndicator.hidden = true
                     self.refreshButton.hidden = false
@@ -83,6 +84,14 @@ class ViewController: UIViewController {
                 networkIssueController.addAction(cancelButton)
                 
                 self.presentViewController(networkIssueController, animated: true, completion: nil)
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    //stop refresh animation
+                    self.refreshActivityIndicator.stopAnimating()
+                    self.refreshActivityIndicator.hidden = true
+                    self.refreshButton.hidden = false
+                })
+
             }
             
         })
