@@ -13,6 +13,7 @@
 		6F81F20C1A5167210047BB55 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F81F20B1A5167210047BB55 /* Images.xcassets */; };
 		6F81F20F1A5167210047BB55 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F81F20D1A5167210047BB55 /* LaunchScreen.xib */; };
 		6F81F21B1A5167210047BB55 /* StormyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F81F21A1A5167210047BB55 /* StormyTests.swift */; };
+		6F81F2271A5180420047BB55 /* Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F81F2261A5180420047BB55 /* Current.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,8 @@
 		6F81F2141A5167210047BB55 /* StormyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StormyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F81F2191A5167210047BB55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F81F21A1A5167210047BB55 /* StormyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormyTests.swift; sourceTree = "<group>"; };
+		6F81F2241A516D0E0047BB55 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = Stormy/MyPlayground.playground; sourceTree = "<group>"; };
+		6F81F2261A5180420047BB55 /* Current.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Current.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				6F81F2011A5167210047BB55 /* Stormy */,
+				6F81F2251A516D140047BB55 /* Playgrounds */,
 				6F81F2171A5167210047BB55 /* StormyTests */,
 				6F81F2001A5167210047BB55 /* Products */,
 			);
@@ -83,6 +87,7 @@
 				6F81F20B1A5167210047BB55 /* Images.xcassets */,
 				6F81F20D1A5167210047BB55 /* LaunchScreen.xib */,
 				6F81F2021A5167210047BB55 /* Supporting Files */,
+				6F81F2261A5180420047BB55 /* Current.swift */,
 			);
 			path = Stormy;
 			sourceTree = "<group>";
@@ -110,6 +115,14 @@
 				6F81F2191A5167210047BB55 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6F81F2251A516D140047BB55 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				6F81F2241A516D0E0047BB55 /* MyPlayground.playground */,
+			);
+			name = Playgrounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F81F2271A5180420047BB55 /* Current.swift in Sources */,
 				6F81F2071A5167210047BB55 /* ViewController.swift in Sources */,
 				6F81F2051A5167210047BB55 /* AppDelegate.swift in Sources */,
 			);
