@@ -37,6 +37,7 @@ locationManager.startUpdatingLocation()
 
 
 var currentLocation = CLLocation()
+currentLocation
 
 if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
     CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized){

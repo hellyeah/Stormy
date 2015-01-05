@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
+//import CoreLocation
 
 class ViewController: UIViewController {
     
@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     //access controls
     //3 access levels
     private let apiKey = "459b10c1c58316fabe5154a4d819de2f"
+    var currentCoords = "37.8267,-122.423"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class ViewController: UIViewController {
         
 //        let string1 = NSString(data: weatherData!, encoding: NSUTF8StringEncoding)
   //      println(string1!)
+//        getLocation()
         getCurrentWeatherData()
         //println(getLocation().latitude)
         
@@ -41,7 +43,7 @@ class ViewController: UIViewController {
     
     func getCurrentWeatherData () -> Void {
         let baseURL = NSURL(string:"https://api.forecast.io/forecast/\(apiKey)/")
-        let forecastURL = NSURL(string: "37.8267,-122.423", relativeToURL: baseURL)
+        let forecastURL = NSURL(string: currentLocation(), relativeToURL: baseURL)
         //println("URL:\(forecastURL!)")
         
         //        let weatherData = NSData(contentsOfURL: forecastURL!, options: nil, error: nil)
@@ -99,30 +101,49 @@ class ViewController: UIViewController {
         })
         downloadTask.resume()
     }
-    
-    func getLocation () -> (latitude: String, longitude: String)? {
-        var locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
-        
-        
-        var currentLocation = CLLocation()
-        
-        if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized){
-                
-                currentLocation = locationManager.location
-                return ("\(currentLocation.coordinate.latitude)", "\(currentLocation.coordinate.longitude)")
-                
-        } else {
-            return nil
-        }
-    }
+//    
+//    func getLocation () -> (latitude: String, longitude: String)? {
+//        var locationManager = CLLocationManager()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.startUpdatingLocation()
+//        
+//        
+//        var currentLocation = CLLocation()
+//        
+//        if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse ||
+//            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized){
+//                
+//                currentLocation = locationManager.location
+//                return ("\(currentLocation.coordinate.latitude)", "\(currentLocation.coordinate.longitude)")
+//                
+//        } else {
+//            return nil
+//        }
+//    }
 
+    func printLocation () {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let coord = appDelegate.currentLocationCoords
+        
+        println(coord.latitude)
+        println(coord.longitude)
+    }
+    
+    func currentLocation () -> (String) {
+        //comma-separated string of coords
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if (appDelegate.currentLocationCoords != nil) {
+            let coords = appDelegate.currentLocationCoords
+            currentCoords = "\(coords.latitude),\(coords.longitude)"
+        }
+        return currentCoords
+    }
 
     @IBAction func refresh() {
         getCurrentWeatherData()
+        currentLocation()
+        printLocation()
         
         refreshButton.hidden = true
         refreshActivityIndicator.hidden = false
